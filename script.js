@@ -6,26 +6,28 @@ const loadExample = document.getElementById("loadExample");
 
 let currentMarkdown = "";
 
-const examples = [
-  {
+const examples = {
+  discounts: {
     gradeLevel: "Grade 7",
     mathTopic: "Percent increase and decrease",
-    learningGoal: "Students will represent and solve percent change problems using tables, equations, and explanations.",
-    taskText: "A jacket originally costs $80. The store marks it down by 25%. What is the sale price? Explain how you know."
+    learningGoal: "Students will compare percent and dollar discounts, find final prices, and justify which deal is better.",
+    taskText: "A student is comparing two discounts on the same $80 jacket. Store A takes 25% off. Store B takes $18 off. Which store has the better deal? Explain using numbers, words, or a representation."
   },
-  {
+  recipe: {
     gradeLevel: "Grade 7",
     mathTopic: "Proportional relationships",
-    learningGoal: "Students will determine whether a relationship is proportional using tables, graphs, equations, and reasoning.",
-    taskText: "A recipe uses 3 cups of flour for every 2 cups of sugar. How much flour is needed for 7 cups of sugar? Show your reasoning."
+    learningGoal: "Students will use equivalent ratios to scale a recipe and explain the constant relationship between quantities.",
+    taskText: "A recipe uses 3 cups of flour for every 2 cups of sugar. How much flour is needed for 7 cups of sugar? Show your reasoning with a table, diagram, or equation."
   },
-  {
+  rental: {
     gradeLevel: "Grade 8",
     mathTopic: "Linear relationships",
-    learningGoal: "Students will interpret slope and y-intercept in context.",
-    taskText: "A bike rental costs $12 to start plus $4 per hour. Write an equation for the total cost and explain what each number means."
+    learningGoal: "Students will interpret slope and y-intercept in context and write an equation for a linear relationship.",
+    taskText: "A bike rental costs $12 to start plus $4 per hour. Write an equation for the total cost after h hours and explain what each number means."
   }
-];
+};
+
+const randomExampleKeys = Object.keys(examples);
 
 function getValue(id) {
   return document.getElementById(id).value.trim();
@@ -372,6 +374,30 @@ function generateScaffold(data) {
   `;
 }
 
+function loadExampleByKey(key, shouldGenerate = true) {
+  const example = examples[key];
+  if (!example) return;
+
+  document.getElementById("gradeLevel").value = example.gradeLevel;
+  document.getElementById("mathTopic").value = example.mathTopic;
+  document.getElementById("learningGoal").value = example.learningGoal;
+  document.getElementById("taskText").value = example.taskText;
+
+  if (shouldGenerate) {
+    const data = {
+      gradeLevel: example.gradeLevel,
+      mathTopic: example.mathTopic,
+      learningGoal: example.learningGoal,
+      taskText: example.taskText,
+      languageNeeds: getValue("languageNeeds"),
+      spanishSupport: getValue("spanishSupport")
+    };
+
+    output.innerHTML = generateScaffold(data);
+    document.getElementById("tool").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -426,9 +452,12 @@ markdownButton.addEventListener("click", () => {
 });
 
 loadExample.addEventListener("click", () => {
-  const example = examples[Math.floor(Math.random() * examples.length)];
-  document.getElementById("gradeLevel").value = example.gradeLevel;
-  document.getElementById("mathTopic").value = example.mathTopic;
-  document.getElementById("learningGoal").value = example.learningGoal;
-  document.getElementById("taskText").value = example.taskText;
+  const key = randomExampleKeys[Math.floor(Math.random() * randomExampleKeys.length)];
+  loadExampleByKey(key, false);
+});
+
+document.querySelectorAll(".example-loader").forEach((button) => {
+  button.addEventListener("click", () => {
+    loadExampleByKey(button.dataset.example, true);
+  });
 });
