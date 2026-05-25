@@ -27,7 +27,7 @@ The current prototype generates:
 - likely misconceptions
 - checks for understanding
 - downloadable Markdown output
-- examples gallery with three classroom-ready starting points
+- interactive examples gallery with one-click loadable starting points
 
 ## Portfolio framing
 
@@ -41,10 +41,10 @@ This project is intended to demonstrate:
 
 ## Current design principles
 
-1. Preserve rigor
-2. Make structure visible
-3. Support teacher judgment
-4. Center access without reducing multilingual support to translation alone
+1. Preserve rigor.
+2. Make structure visible.
+3. Support teacher judgment.
+4. Center access without reducing multilingual support to translation alone.
 
 ## Next build steps
 
@@ -54,3 +54,7 @@ This project is intended to demonstrate:
 4. Convert to React or Next.js.
 5. Deploy on Vercel.
 6. Add optional AI generation with teacher review controls.
+
+## v0.4 Update
+
+The examples gallery cards now load example tasks into the generator and automatically create a scaffold.
