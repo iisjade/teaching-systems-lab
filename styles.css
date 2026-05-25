@@ -357,3 +357,34 @@ footer {
   font-size: 0.92rem;
   color: var(--muted);
 }
+
+.example-loader {
+  width: 100%;
+  text-align: left;
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background: var(--card);
+  border-radius: 22px;
+  padding: 24px;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.example-loader:hover {
+  background: var(--soft);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.load-hint {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.example-loader:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
