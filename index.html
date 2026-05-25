@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teaching Systems Lab | Math Language Scaffold Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Page navigation">
+      <a href="#tool">Tool</a>
+      <a href="#sample">Sample</a>
+      <a href="#case-study">Case study</a>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Teaching Systems Lab</p>
+        <h1>Math Language Scaffold Generator</h1>
+        <p class="subtitle">
+          A classroom-centered web tool for adapting math tasks for multilingual learners while preserving the mathematical thinking students are expected to do.
+        </p>
+        <div class="hero-actions">
+          <a class="button-link" href="#tool">Try the tool</a>
+          <a class="button-link secondary-link" href="#case-study">Read the case study</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Project summary">
+        <h2>Project snapshot</h2>
+        <dl>
+          <div>
+            <dt>Role</dt>
+            <dd>Designer, educator, prototype builder</dd>
+          </div>
+          <div>
+            <dt>Audience</dt>
+            <dd>Middle school math teachers</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Multilingual access, assessment clarity, math discourse</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>Working MVP</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </header>
+
+  <main id="tool" class="layout">
+    <section class="card input-panel">
+      <h2>Create a scaffold</h2>
+      <p class="helper">
+        Paste a math task, choose the learning context, and generate classroom-ready supports.
+      </p>
+
+      <form id="scaffoldForm">
+        <label>
+          Grade level
+          <select id="gradeLevel">
+            <option>Grade 6</option>
+            <option selected>Grade 7</option>
+            <option>Grade 8</option>
+            <option>Algebra 1</option>
+          </select>
+        </label>
+
+        <label>
+          Math topic
+          <input id="mathTopic" type="text" value="Percent increase and decrease" />
+        </label>
+
+        <label>
+          Learning goal
+          <input id="learningGoal" type="text" value="Students will represent and solve percent change problems using tables, equations, and explanations." />
+        </label>
+
+        <label>
+          Original task
+          <textarea id="taskText" rows="7">A jacket originally costs $80. The store marks it down by 25%. What is the sale price? Explain how you know.</textarea>
+        </label>
+
+        <label>
+          Student language needs
+          <select id="languageNeeds">
+            <option selected>Multilingual learners / newcomers</option>
+            <option>Mixed language proficiency</option>
+            <option>Students needing reading support</option>
+            <option>General classroom support</option>
+          </select>
+        </label>
+
+        <label>
+          Spanish support
+          <select id="spanishSupport">
+            <option selected>Include Spanish vocabulary and sentence frames</option>
+            <option>Include Spanish vocabulary only</option>
+            <option>No Spanish support</option>
+          </select>
+        </label>
+
+        <div class="button-row">
+          <button type="submit">Generate scaffold</button>
+          <button type="button" class="secondary" id="loadExample">Load example</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card output-panel">
+      <div class="output-header">
+        <div>
+          <h2>Generated support</h2>
+          <p class="helper">Copy, revise, or paste into a lesson plan, slide, or worksheet.</p>
+        </div>
+        <div class="copy-actions">
+          <button type="button" class="secondary small" id="copyOutput">Copy text</button>
+          <button type="button" class="secondary small" id="downloadMarkdown">Download Markdown</button>
+        </div>
+      </div>
+
+      <article id="output" class="output">
+        <p class="empty-state">Generate a scaffold to see the output here.</p>
+      </article>
+    </section>
+  </main>
+
+  <section id="sample" class="sample-section">
+    <div class="section-heading">
+      <p class="eyebrow">Before / After</p>
+      <h2>Example transformation</h2>
+      <p class="helper">The goal is not to simplify the math. The goal is to remove avoidable language barriers.</p>
+    </div>
+
+    <div class="sample-grid">
+      <div class="card">
+        <h3>Original task</h3>
+        <p>
+          A jacket originally costs $80. The store marks it down by 25%. What is the sale price? Explain how you know.
+        </p>
+      </div>
+      <div class="card accent-card">
+        <h3>Scaffolded launch</h3>
+        <p>
+          First, find the starting price. Then find the amount of the discount. Finally, subtract the discount from the original price to find the sale price.
+        </p>
+        <p class="mini-note">
+          Students still solve the percent decrease problem and explain their reasoning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="case-study" class="case-study">
+    <div class="section-heading">
+      <p class="eyebrow">Portfolio case study</p>
+      <h2>Why this tool exists</h2>
+    </div>
+
+    <div class="case-grid">
+      <div class="card">
+        <h3>Problem</h3>
+        <p>
+          Many math tasks ask students to reason, model, and explain. For multilingual learners, the mathematical demand can become hidden behind dense wording, unfamiliar vocabulary, or unclear expectations for written explanation.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Design principles</h3>
+        <ul>
+          <li><strong>Preserve rigor:</strong> keep the original reasoning demand intact.</li>
+          <li><strong>Make structure visible:</strong> name quantities, representations, and explanation moves.</li>
+          <li><strong>Support teacher judgment:</strong> generate editable scaffolds, not fixed answers.</li>
+          <li><strong>Center access:</strong> include multilingual supports without treating translation as the whole solution.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>What the MVP demonstrates</h3>
+        <ul>
+          <li>Instructional design for real classroom constraints</li>
+          <li>Teacher-facing product thinking</li>
+          <li>Standards-aligned math language support</li>
+          <li>Editable output that can move into slides, worksheets, or lesson plans</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Next iterations</h3>
+        <ul>
+          <li>Add CCSS-aligned rubric output</li>
+          <li>Add stronger topic-specific templates</li>
+          <li>Add saved examples and classroom use cases</li>
+          <li>Convert to React/Next.js and deploy on Vercel</li>
+          <li>Add optional AI generation with teacher review controls</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Teaching Systems Lab is a portfolio project exploring practical tools for math, computer science, and multilingual classrooms.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
