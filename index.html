@@ -11,6 +11,7 @@
     <nav class="top-nav" aria-label="Page navigation">
       <a href="#tool">Tool</a>
       <a href="#sample">Sample</a>
+      <a href="#examples-gallery">Examples</a>
       <a href="#case-study">Case study</a>
     </nav>
 
@@ -45,10 +46,6 @@
           <div>
             <dt>Status</dt>
             <dd>Working MVP</dd>
-          </div>
-          <div>
-            <dt>Builder</dt>
-            <dd>Jade Solomon</dd>
           </div>
         </dl>
       </aside>
@@ -152,12 +149,12 @@
           First, find the starting price. Then find the amount of the discount. Finally, subtract the discount from the original price to find the sale price.
         </p>
         <p class="mini-note">
-		      Students still solve the percent decrease problem and explain their reasoning.
-				</p>
+          Students still solve the percent decrease problem and explain their reasoning.
+        </p>
       </div>
     </div>
   </section>
-  
+
   <section id="examples-gallery" class="examples-gallery">
     <div class="section-heading">
       <p class="eyebrow">Examples gallery</p>
@@ -168,7 +165,7 @@
     </div>
 
     <div class="example-card-grid">
-      <div class="card example-card">
+      <button type="button" class="card example-card example-loader" data-example="discounts">
         <p class="tag">Percent Change</p>
         <h3>Compare two discounts</h3>
         <p>
@@ -179,9 +176,10 @@
           <li>Find and compare final prices</li>
           <li>Explain using numbers, words, or a representation</li>
         </ul>
-      </div>
+        <span class="load-hint">Load this example</span>
+      </button>
 
-      <div class="card example-card">
+      <button type="button" class="card example-card example-loader" data-example="recipe">
         <p class="tag">Proportional Relationships</p>
         <h3>Scale a recipe</h3>
         <p>
@@ -192,9 +190,10 @@
           <li>Use a scale factor or table</li>
           <li>Explain the constant relationship</li>
         </ul>
-      </div>
+        <span class="load-hint">Load this example</span>
+      </button>
 
-      <div class="card example-card">
+      <button type="button" class="card example-card example-loader" data-example="rental">
         <p class="tag">Linear Relationships</p>
         <h3>Interpret a rental cost</h3>
         <p>
@@ -205,10 +204,12 @@
           <li>Interpret the rate of change</li>
           <li>Connect the equation to the context</li>
         </ul>
-      </div>
+        <span class="load-hint">Load this example</span>
+      </button>
     </div>
   </section>
-	
+
+
   <section id="case-study" class="case-study">
     <div class="section-heading">
       <p class="eyebrow">Portfolio case study</p>
@@ -226,10 +227,10 @@
       <div class="card">
         <h3>Design principles</h3>
         <ul>
-          <li><strong>Preserve rigor:</strong> keep the original reasoning demand intact</li>
-          <li><strong>Make structure visible:</strong> name quantities, representations, and explanation moves</li>
-          <li><strong>Support teacher judgment:</strong> generate editable scaffolds, not fixed answers</li>
-          <li><strong>Center access:</strong> include multilingual supports without treating translation as the whole solution</li>
+          <li><strong>Preserve rigor:</strong> keep the original reasoning demand intact.</li>
+          <li><strong>Make structure visible:</strong> name quantities, representations, and explanation moves.</li>
+          <li><strong>Support teacher judgment:</strong> generate editable scaffolds, not fixed answers.</li>
+          <li><strong>Center access:</strong> include multilingual supports without treating translation as the whole solution.</li>
         </ul>
       </div>
 
@@ -243,13 +244,6 @@
         </ul>
       </div>
 
-      <div class="card">
-        <h3>About the builder</h3>
-        <p>
-          Jade Solomon is a middle school math and computer science educator in San Francisco. Their work focuses on conceptual understanding, multilingual access, classroom technology, and practical systems that help teachers make student thinking visible.
-        </p>
-      </div>
-      
       <div class="card">
         <h3>Next iterations</h3>
         <ul>
@@ -267,7 +261,7 @@
     <p>
       Built by Jade Solomon, a math and computer science educator designing practical learning tools for multilingual, inclusive classrooms.
     </p>
-		<p class="tech-note">
+    <p class="tech-note">
       Built with HTML, CSS, and JavaScript. Deployed with GitHub Pages.
     </p>
   </footer>
