@@ -474,28 +474,51 @@ const customStandardLabel = document.getElementById("customStandardLabel");
 
 let currentRubricMarkdown = "";
 
-const standardDetails = {
-  "7.RP.A.3": {
-    title: "7.RP.A.3",
-    text: "Use proportional relationships to solve multistep ratio and percent problems.",
-    focus: "proportional reasoning, percent change, multistep problem solving, and explanation"
-  },
-  "7.RP.A.2": {
-    title: "7.RP.A.2",
-    text: "Recognize and represent proportional relationships between quantities.",
-    focus: "tables, graphs, equations, constant of proportionality, and reasoning about proportional relationships"
-  },
-  "7.G.B.4": {
-    title: "7.G.B.4",
-    text: "Know the formulas for the area and circumference of a circle and use them to solve problems.",
-    focus: "circle measurements, formulas, units, and interpreting quantities in context"
-  },
-  "8.F.B.4": {
-    title: "8.F.B.4",
-    text: "Construct a function to model a linear relationship between two quantities.",
-    focus: "linear relationships, rate of change, initial value, equations, and interpretation in context"
-  }
-};
+function buildStandardDetails() {
+  const standards = typeof getGradeStandards === "function" ? getGradeStandards("7") : [];
+  const details = {};
+
+  standards.forEach(standard => {
+    details[standard.code] = {
+      title: standard.code,
+      text: standard.text,
+      shortName: standard.shortName,
+      focus: `${standard.domainName}: ${standard.clusterText}`,
+      prior: standard.prior || [],
+      future: standard.future || []
+    };
+  });
+
+  return details;
+}
+
+const standardDetails = buildStandardDetails();
+
+function populateRubricStandards() {
+  if (!rubricStandard || typeof getGradeStandards !== "function") return;
+
+  const standards = getGradeStandards("7");
+  rubricStandard.innerHTML = "";
+
+  standards.forEach(standard => {
+    const option = document.createElement("option");
+    option.value = standard.code;
+    option.textContent = `${standard.code}: ${standard.shortName}`;
+    rubricStandard.appendChild(option);
+  });
+
+  const customOption = document.createElement("option");
+  customOption.value = "custom";
+  customOption.textContent = "Custom standard";
+  rubricStandard.appendChild(customOption);
+
+  rubricStandard.value = "7.RP.A.3";
+}
+
+function coherenceList(items) {
+  if (!items || items.length === 0) return "<li>Not specified in this prototype yet.</li>";
+  return items.map(item => `<li>${item}</li>`).join("");
+}
 
 function getRubricValue(id) {
   return document.getElementById(id).value.trim();
@@ -508,11 +531,21 @@ function selectedStandardInfo() {
     return {
       title: "Custom standard",
       text: getRubricValue("customStandardText") || "Custom standard text not provided.",
-      focus: "the selected mathematical goal, student reasoning, and clarity of explanation"
+      shortName: "Custom standard",
+      focus: "the selected mathematical goal, student reasoning, and clarity of explanation",
+      prior: [],
+      future: []
     };
   }
 
-  return standardDetails[selected];
+  return standardDetails[selected] || {
+    title: selected,
+    text: "Standard text not found in the local reference.",
+    shortName: selected,
+    focus: "Mathematical reasoning and communication",
+    prior: [],
+    future: []
+  };
 }
 
 function rubricRows(emphasis, info, taskType) {
@@ -645,6 +678,11 @@ function rubricMarkdown(data, info, rows, criteria, lookFors) {
 **Student product:** ${data.studentProduct}  
 **Emphasis:** ${data.emphasis}
 
+## Related standards / coherence notes
+
+**Builds from:** ${(info.prior && info.prior.length) ? info.prior.join(", ") : "Not specified in this prototype yet."}  
+**Builds toward:** ${(info.future && info.future.length) ? info.future.join(", ") : "Not specified in this prototype yet."}
+
 ## Student-Facing Rubric
 
 | Category | 4 — Strong Evidence | 3 — Meets Expectations | 2 — Developing | 1 — Beginning |
@@ -688,6 +726,20 @@ function generateRubric() {
     </section>
 
     <section>
+      <h3>Related standards / coherence notes</h3>
+      <div class="coherence-grid">
+        <div>
+          <h4>Builds from</h4>
+          <ul>${coherenceList(info.prior)}</ul>
+        </div>
+        <div>
+          <h4>Builds toward</h4>
+          <ul>${coherenceList(info.future)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <h3>Task context</h3>
       <p><strong>Task type:</strong> ${data.taskType}</p>
       <p><strong>Student product:</strong> ${data.studentProduct}</p>
@@ -720,6 +772,8 @@ function generateRubric() {
     </section>
   `;
 }
+
+populateRubricStandards();
 
 if (rubricStandard) {
   rubricStandard.addEventListener("change", () => {

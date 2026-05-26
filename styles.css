@@ -561,3 +561,33 @@ footer {
     white-space: normal;
   }
 }
+
+.coherence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.coherence-grid div {
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.coherence-grid h4 {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+}
+
+.coherence-grid ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+@media (max-width: 700px) {
+  .coherence-grid {
+    grid-template-columns: 1fr;
+  }
+}

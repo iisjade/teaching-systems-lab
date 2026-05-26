@@ -75,3 +75,9 @@ Updated the visual color system to a slate/indigo palette with softer blue-laven
 ## v0.8 Update
 
 Reformatted the rubric generator to use a student-facing row-by-category rubric table. The default format now uses three clear categories: Mathematical Thinking, Representation, and Precision & Communication. Project/performance tasks use Data & Mathematical Thinking, Visual Representation, and Reflection & Communication.
+
+## v0.9 Update
+
+Added `standards.js`, a local Grade 7 CCSS reference layer with domains, clusters, standards, Standards for Mathematical Practice, and lightweight prior/future coherence notes. The rubric standard dropdown now loads from local reference data instead of hardcoded HTML options.
+
+CCSS text © 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. Used here as a standards reference for classroom planning.

@@ -39,3 +39,8 @@ Updated the color system from the original warm beige/green palette to a cleaner
 ## v0.8 Update
 
 Revised the rubric generator to better match Jade Solomon’s classroom rubric style: fewer categories, student-facing language, and a row-by-category table with performance levels across columns. This makes the rubric output clearer, more printable, and more aligned with actual classroom assessment practice.
+
+
+## v0.9 Update
+
+Added a local Grade 7 CCSS reference layer (`standards.js`) and connected it to the rubric generator. The tool now loads standards dynamically and shows lightweight related-standards/coherence notes, moving the prototype toward a standards-aware planning system.
