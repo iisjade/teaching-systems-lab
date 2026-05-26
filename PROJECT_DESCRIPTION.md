@@ -34,3 +34,8 @@ Added a tool-suite overview that frames the site as a two-tool workflow: first a
 ## v0.7 Update
 
 Updated the color system from the original warm beige/green palette to a cleaner slate/indigo visual direction with soft blue-lavender surfaces, stronger contrast, and a more modern portfolio feel.
+
+
+## v0.8 Update
+
+Revised the rubric generator to better match Jade Solomon’s classroom rubric style: fewer categories, student-facing language, and a row-by-category table with performance levels across columns. This makes the rubric output clearer, more printable, and more aligned with actual classroom assessment practice.
