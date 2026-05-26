@@ -354,9 +354,13 @@ footer {
   font-weight: 700;
 }
 
-.tech-note {
-  font-size: 0.92rem;
-  color: var(--muted);
+.tech-note a {
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.tech-note a:hover {
+  color: var(--accent);
 }
 
 .example-loader {
