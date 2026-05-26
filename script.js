@@ -461,3 +461,292 @@ document.querySelectorAll(".example-loader").forEach((button) => {
     loadExampleByKey(button.dataset.example, true);
   });
 });
+
+// Rubric Generator
+
+const rubricForm = document.getElementById("rubricForm");
+const rubricOutput = document.getElementById("rubricOutput");
+const copyRubricOutput = document.getElementById("copyRubricOutput");
+const downloadRubricMarkdown = document.getElementById("downloadRubricMarkdown");
+const loadRubricExample = document.getElementById("loadRubricExample");
+const rubricStandard = document.getElementById("rubricStandard");
+const customStandardLabel = document.getElementById("customStandardLabel");
+
+let currentRubricMarkdown = "";
+
+const standardDetails = {
+  "7.RP.A.3": {
+    title: "7.RP.A.3",
+    text: "Use proportional relationships to solve multistep ratio and percent problems.",
+    focus: "proportional reasoning, percent change, multistep problem solving, and explanation"
+  },
+  "7.RP.A.2": {
+    title: "7.RP.A.2",
+    text: "Recognize and represent proportional relationships between quantities.",
+    focus: "tables, graphs, equations, constant of proportionality, and reasoning about proportional relationships"
+  },
+  "7.G.B.4": {
+    title: "7.G.B.4",
+    text: "Know the formulas for the area and circumference of a circle and use them to solve problems.",
+    focus: "circle measurements, formulas, units, and interpreting quantities in context"
+  },
+  "8.F.B.4": {
+    title: "8.F.B.4",
+    text: "Construct a function to model a linear relationship between two quantities.",
+    focus: "linear relationships, rate of change, initial value, equations, and interpretation in context"
+  }
+};
+
+function getRubricValue(id) {
+  return document.getElementById(id).value.trim();
+}
+
+function selectedStandardInfo() {
+  const selected = getRubricValue("rubricStandard");
+
+  if (selected === "custom") {
+    return {
+      title: "Custom standard",
+      text: getRubricValue("customStandardText") || "Custom standard text not provided.",
+      focus: "the selected mathematical goal, student reasoning, and clarity of explanation"
+    };
+  }
+
+  return standardDetails[selected];
+}
+
+function rubricRows(emphasis) {
+  const communicationFocus = emphasis.toLowerCase().includes("communication");
+  const representationFocus = emphasis.toLowerCase().includes("representation");
+  const accuracyFocus = emphasis.toLowerCase().includes("accuracy");
+
+  return [
+    {
+      level: "4",
+      label: "Exceeds standard",
+      description: representationFocus
+        ? "Accurately solves the task, uses multiple appropriate representations, and clearly connects the representations to the mathematical relationship."
+        : communicationFocus
+          ? "Accurately solves the task and gives a clear, complete explanation using precise mathematical language."
+          : accuracyFocus
+            ? "Solves accurately and efficiently, with work that is complete, organized, and mathematically valid."
+            : "Shows strong conceptual understanding, solves accurately, and explains why the strategy works."
+    },
+    {
+      level: "3",
+      label: "Meets standard",
+      description: representationFocus
+        ? "Solves the task and uses an appropriate representation that supports the reasoning."
+        : communicationFocus
+          ? "Solves the task and explains the reasoning in a way that is understandable and mathematically connected."
+          : accuracyFocus
+            ? "Solves the task accurately with enough work shown to support the answer."
+            : "Shows grade-level understanding, solves the main task, and gives a reasonable explanation."
+    },
+    {
+      level: "2",
+      label: "Approaching standard",
+      description: "Shows partial understanding. The strategy may be incomplete, the explanation may be unclear, or the work may include a mathematical error that affects the final answer."
+    },
+    {
+      level: "1",
+      label: "Beginning",
+      description: "Shows limited evidence of understanding. The response may identify some relevant information but does not yet show a complete or valid strategy."
+    }
+  ];
+}
+
+function successCriteria(info, emphasis) {
+  const base = [
+    `I can identify the important quantities in the problem.`,
+    `I can choose a strategy or representation that fits the task.`,
+    `I can solve the problem accurately.`,
+    `I can explain how my work connects to ${info.title}.`
+  ];
+
+  if (emphasis.toLowerCase().includes("representation")) {
+    base.push("I can connect my representation to the numbers and context.");
+  }
+
+  if (emphasis.toLowerCase().includes("communication")) {
+    base.push("I can use clear mathematical language in my explanation.");
+  }
+
+  return base;
+}
+
+function teacherLookFors(info) {
+  return [
+    `Evidence that the student understands the standard: ${info.text}`,
+    "A strategy that matches the structure of the problem, not just keyword-based work.",
+    "A representation, equation, or explanation that makes the student’s reasoning visible.",
+    "Accurate use of units, labels, and quantities.",
+    "A written or verbal explanation that connects the answer back to the context."
+  ];
+}
+
+function renderRubricTable(rows) {
+  return `
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Descriptor</th>
+          <th>Evidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(row => `
+          <tr>
+            <td><strong>${row.level}</strong></td>
+            <td>${row.label}</td>
+            <td>${row.description}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function rubricMarkdown(data, info, rows, criteria, lookFors) {
+  return `# CCSS-Aligned Rubric
+
+**Grade level:** ${data.gradeLevel}  
+**Standard:** ${info.title}: ${info.text}  
+**Task type:** ${data.taskType}  
+**Student product:** ${data.studentProduct}  
+**Emphasis:** ${data.emphasis}
+
+## 1–4 Rubric
+
+| Level | Descriptor | Evidence |
+|---|---|---|
+${rows.map(row => `| ${row.level} | ${row.label} | ${row.description} |`).join("\n")}
+
+## Student-facing success criteria
+
+${criteria.map(item => `- ${item}`).join("\n")}
+
+## Teacher look-fors
+
+${lookFors.map(item => `- ${item}`).join("\n")}
+
+## Family-friendly explanation
+
+This rubric looks at how well students understand and explain the mathematics, not just whether they get a final answer. A score of 3 means the student is meeting the grade-level expectation for this standard. A score of 4 shows especially strong reasoning, communication, or use of representations. Scores of 1 or 2 show that the student is still developing parts of the concept and needs more practice or support.
+`;
+}
+
+function generateRubric() {
+  const data = {
+    gradeLevel: getRubricValue("rubricGradeLevel"),
+    taskType: getRubricValue("rubricTaskType"),
+    studentProduct: getRubricValue("rubricStudentProduct"),
+    emphasis: getRubricValue("rubricEmphasis")
+  };
+
+  const info = selectedStandardInfo();
+  const rows = rubricRows(data.emphasis);
+  const criteria = successCriteria(info, data.emphasis);
+  const lookFors = teacherLookFors(info);
+
+  currentRubricMarkdown = rubricMarkdown(data, info, rows, criteria, lookFors);
+
+  rubricOutput.innerHTML = `
+    <section>
+      <h3>Standard</h3>
+      <p><strong>${info.title}:</strong> ${info.text}</p>
+      <p><strong>Assessment focus:</strong> ${info.focus}</p>
+    </section>
+
+    <section>
+      <h3>Task context</h3>
+      <p><strong>Task type:</strong> ${data.taskType}</p>
+      <p><strong>Student product:</strong> ${data.studentProduct}</p>
+      <p><strong>Emphasis:</strong> ${data.emphasis}</p>
+    </section>
+
+    <section>
+      <h3>1–4 Rubric</h3>
+      ${renderRubricTable(rows)}
+    </section>
+
+    <section>
+      <h3>Student-facing success criteria</h3>
+      ${renderList(criteria)}
+    </section>
+
+    <section>
+      <h3>Teacher look-fors</h3>
+      ${renderList(lookFors)}
+    </section>
+
+    <section>
+      <h3>Family-friendly explanation</h3>
+      <p>
+        This rubric looks at how well students understand and explain the mathematics, not just whether they get a final answer.
+        A score of 3 means the student is meeting the grade-level expectation for this standard.
+        A score of 4 shows especially strong reasoning, communication, or use of representations.
+        Scores of 1 or 2 show that the student is still developing parts of the concept and needs more practice or support.
+      </p>
+    </section>
+  `;
+}
+
+if (rubricStandard) {
+  rubricStandard.addEventListener("change", () => {
+    customStandardLabel.classList.toggle("hidden", rubricStandard.value !== "custom");
+  });
+}
+
+if (rubricForm) {
+  rubricForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    generateRubric();
+  });
+}
+
+if (copyRubricOutput) {
+  copyRubricOutput.addEventListener("click", async () => {
+    const text = rubricOutput.innerText.trim();
+
+    if (!text || text.includes("Generate a rubric")) {
+      return;
+    }
+
+    await navigator.clipboard.writeText(text);
+    copyRubricOutput.textContent = "Copied";
+    setTimeout(() => {
+      copyRubricOutput.textContent = "Copy text";
+    }, 1400);
+  });
+}
+
+if (downloadRubricMarkdown) {
+  downloadRubricMarkdown.addEventListener("click", () => {
+    if (!currentRubricMarkdown) {
+      generateRubric();
+    }
+
+    const blob = new Blob([currentRubricMarkdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ccss-aligned-rubric.md";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
+}
+
+if (loadRubricExample) {
+  loadRubricExample.addEventListener("click", () => {
+    document.getElementById("rubricGradeLevel").value = "Grade 7";
+    document.getElementById("rubricStandard").value = "7.RP.A.3";
+    document.getElementById("rubricTaskType").value = "Short constructed response";
+    document.getElementById("rubricStudentProduct").value = "Students compare two discounts, calculate final prices, and justify which deal is better.";
+    document.getElementById("rubricEmphasis").value = "Conceptual understanding and explanation";
+    customStandardLabel.classList.add("hidden");
+  });
+}
