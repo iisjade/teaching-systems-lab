@@ -63,3 +63,11 @@ The examples gallery cards now load example tasks into the generator and automat
 ## v0.5 Update
 
 Added a second tool: a CCSS-Aligned Rubric Generator for drafting standards-based assessment language.
+
+## v0.6 Update
+
+Added a polished tool-suite overview, stronger portfolio flow, improved navigation labels, and responsive refinements for the rubric section.
+
+## v0.7 Update
+
+Updated the visual color system to a slate/indigo palette with softer blue-lavender surfaces and improved portfolio polish.
