@@ -71,3 +71,7 @@ Added a polished tool-suite overview, stronger portfolio flow, improved navigati
 ## v0.7 Update
 
 Updated the visual color system to a slate/indigo palette with softer blue-lavender surfaces and improved portfolio polish.
+
+## v0.8 Update
+
+Reformatted the rubric generator to use a student-facing row-by-category rubric table. The default format now uses three clear categories: Mathematical Thinking, Representation, and Precision & Communication. Project/performance tasks use Data & Mathematical Thinking, Visual Representation, and Reflection & Communication.
