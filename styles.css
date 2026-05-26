@@ -396,7 +396,12 @@ footer {
 }
 
 .rubric-layout {
-  padding-top: 0;
+  max-width: none;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .hidden {
