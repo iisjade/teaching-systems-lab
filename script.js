@@ -515,43 +515,64 @@ function selectedStandardInfo() {
   return standardDetails[selected];
 }
 
-function rubricRows(emphasis) {
-  const communicationFocus = emphasis.toLowerCase().includes("communication");
-  const representationFocus = emphasis.toLowerCase().includes("representation");
-  const accuracyFocus = emphasis.toLowerCase().includes("accuracy");
+function rubricRows(emphasis, info, taskType) {
+  const isProject =
+    taskType.toLowerCase().includes("project") ||
+    taskType.toLowerCase().includes("performance");
+
+  if (isProject) {
+    return [
+      {
+        category: "Data & Mathematical Thinking",
+        focus: `${info.title} + MP4 — Model with Mathematics`,
+        level4: "I use meaningful data or quantities to show clear mathematical patterns. My choices help tell a clear mathematical story.",
+        level3: "I use enough data or quantities to show mathematical patterns. My work connects to the task and makes sense.",
+        level2: "I use some data or quantities, but my patterns or mathematical connections are not fully clear yet.",
+        level1: "I include very little data or mathematical evidence. My patterns or connections are unclear or incomplete."
+      },
+      {
+        category: "Visual Representation",
+        focus: "MP4 — Model with Mathematics",
+        level4: "My representation clearly shows the math. My labels, layout, and design choices help someone understand my thinking easily.",
+        level3: "My representation shows the math clearly overall. Most labels and design choices help the reader understand my thinking.",
+        level2: "My representation shows some of the math, but parts are unclear, incomplete, or hard to connect to my thinking.",
+        level1: "My representation is missing, incomplete, disorganized, or very difficult to interpret."
+      },
+      {
+        category: "Reflection & Communication",
+        focus: "MP3 + MP6 — Explain and communicate reasoning",
+        level4: "I clearly explain what I noticed, what my work shows, and why my conclusions make sense.",
+        level3: "I explain my main ideas and conclusions clearly. My reasoning connects to my work.",
+        level2: "I explain some of my thinking, but my reasoning or conclusions need more detail.",
+        level1: "My explanation is missing, very brief, or does not yet connect to the math."
+      }
+    ];
+  }
 
   return [
     {
-      level: "4",
-      label: "Exceeds standard",
-      description: representationFocus
-        ? "Accurately solves the task, uses multiple appropriate representations, and clearly connects the representations to the mathematical relationship."
-        : communicationFocus
-          ? "Accurately solves the task and gives a clear, complete explanation using precise mathematical language."
-          : accuracyFocus
-            ? "Solves accurately and efficiently, with work that is complete, organized, and mathematically valid."
-            : "Shows strong conceptual understanding, solves accurately, and explains why the strategy works."
+      category: "Mathematical Thinking",
+      focus: `${info.title} — ${info.text}`,
+      level4: "I identify the important quantities, choose an efficient strategy, and explain why the math works.",
+      level3: "I identify the important quantities, solve the problem, and explain my reasoning clearly.",
+      level2: "I identify some important quantities and use a partially correct strategy, but my reasoning is incomplete or unclear.",
+      level1: "I am beginning to identify the quantities, but my strategy or explanation does not yet show the math clearly."
     },
     {
-      level: "3",
-      label: "Meets standard",
-      description: representationFocus
-        ? "Solves the task and uses an appropriate representation that supports the reasoning."
-        : communicationFocus
-          ? "Solves the task and explains the reasoning in a way that is understandable and mathematically connected."
-          : accuracyFocus
-            ? "Solves the task accurately with enough work shown to support the answer."
-            : "Shows grade-level understanding, solves the main task, and gives a reasonable explanation."
+      category: "Representation",
+      focus: "MP4 — Model with Mathematics",
+      level4: "My table, diagram, equation, graph, or model clearly shows the relationship and supports my explanation.",
+      level3: "My representation shows the relationship and helps explain my solution.",
+      level2: "My representation is partly useful, but some parts are unclear, incomplete, or not connected to my solution.",
+      level1: "My representation is missing, incomplete, or difficult to interpret."
     },
     {
-      level: "2",
-      label: "Approaching standard",
-      description: "Shows partial understanding. The strategy may be incomplete, the explanation may be unclear, or the work may include a mathematical error that affects the final answer."
-    },
-    {
-      level: "1",
-      label: "Beginning",
-      description: "Shows limited evidence of understanding. The response may identify some relevant information but does not yet show a complete or valid strategy."
+      category: "Precision & Communication",
+      focus: "MP6 — Attend to Precision",
+      level4: "My work uses accurate labels, units, vocabulary, and complete explanations throughout.",
+      level3: "My work uses mostly accurate labels, units, vocabulary, and explanations.",
+      level2: "Some labels, units, vocabulary, or explanations are missing or unclear.",
+      level1: "Important labels, units, vocabulary, or explanations are missing."
     }
   ];
 }
@@ -587,20 +608,27 @@ function teacherLookFors(info) {
 
 function renderRubricTable(rows) {
   return `
-    <table class="rubric-table">
+    <table class="rubric-grid">
       <thead>
         <tr>
-          <th>Level</th>
-          <th>Descriptor</th>
-          <th>Evidence</th>
+          <th>Category</th>
+          <th>4 — Strong Evidence</th>
+          <th>3 — Meets Expectations</th>
+          <th>2 — Developing</th>
+          <th>1 — Beginning</th>
         </tr>
       </thead>
       <tbody>
         ${rows.map(row => `
           <tr>
-            <td><strong>${row.level}</strong></td>
-            <td>${row.label}</td>
-            <td>${row.description}</td>
+            <td>
+              <strong>${row.category}</strong>
+              <p><em>Standard Focus: ${row.focus}</em></p>
+            </td>
+            <td>${row.level4}</td>
+            <td>${row.level3}</td>
+            <td>${row.level2}</td>
+            <td>${row.level1}</td>
           </tr>
         `).join("")}
       </tbody>
@@ -609,7 +637,7 @@ function renderRubricTable(rows) {
 }
 
 function rubricMarkdown(data, info, rows, criteria, lookFors) {
-  return `# CCSS-Aligned Rubric
+  return `# CCSS-Aligned Student-Facing Rubric
 
 **Grade level:** ${data.gradeLevel}  
 **Standard:** ${info.title}: ${info.text}  
@@ -617,11 +645,11 @@ function rubricMarkdown(data, info, rows, criteria, lookFors) {
 **Student product:** ${data.studentProduct}  
 **Emphasis:** ${data.emphasis}
 
-## 1–4 Rubric
+## Student-Facing Rubric
 
-| Level | Descriptor | Evidence |
-|---|---|---|
-${rows.map(row => `| ${row.level} | ${row.label} | ${row.description} |`).join("\n")}
+| Category | 4 — Strong Evidence | 3 — Meets Expectations | 2 — Developing | 1 — Beginning |
+|---|---|---|---|---|
+${rows.map(row => `| ${row.category}<br><br>Standard Focus: ${row.focus} | ${row.level4} | ${row.level3} | ${row.level2} | ${row.level1} |`).join("\n")}
 
 ## Student-facing success criteria
 
@@ -633,7 +661,7 @@ ${lookFors.map(item => `- ${item}`).join("\n")}
 
 ## Family-friendly explanation
 
-This rubric looks at how well students understand and explain the mathematics, not just whether they get a final answer. A score of 3 means the student is meeting the grade-level expectation for this standard. A score of 4 shows especially strong reasoning, communication, or use of representations. Scores of 1 or 2 show that the student is still developing parts of the concept and needs more practice or support.
+This rubric describes what strong mathematical thinking looks like. A score of 3 means the student is meeting the grade-level expectation for this standard. A score of 4 shows especially strong reasoning, representation, precision, or communication. Scores of 1 or 2 show that the student is still developing parts of the concept and needs more practice or support.
 `;
 }
 
@@ -646,7 +674,7 @@ function generateRubric() {
   };
 
   const info = selectedStandardInfo();
-  const rows = rubricRows(data.emphasis);
+  const rows = rubricRows(data.emphasis, info, data.taskType);
   const criteria = successCriteria(info, data.emphasis);
   const lookFors = teacherLookFors(info);
 
@@ -667,7 +695,7 @@ function generateRubric() {
     </section>
 
     <section>
-      <h3>1–4 Rubric</h3>
+      <h3>Student-Facing Rubric</h3>
       ${renderRubricTable(rows)}
     </section>
 
@@ -684,9 +712,9 @@ function generateRubric() {
     <section>
       <h3>Family-friendly explanation</h3>
       <p>
-        This rubric looks at how well students understand and explain the mathematics, not just whether they get a final answer.
+        This rubric describes what strong mathematical thinking looks like.
         A score of 3 means the student is meeting the grade-level expectation for this standard.
-        A score of 4 shows especially strong reasoning, communication, or use of representations.
+        A score of 4 shows especially strong reasoning, representation, precision, or communication.
         Scores of 1 or 2 show that the student is still developing parts of the concept and needs more practice or support.
       </p>
     </section>
