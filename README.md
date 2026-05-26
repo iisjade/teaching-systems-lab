@@ -4,7 +4,7 @@ A web-based portfolio project for practical teacher-facing learning tools.
 
 ## Current tool
 
-**Math Language Scaffold Generator**
+**Math Language Scaffold Generator** and **CCSS-Aligned Rubric Generator**
 
 This prototype helps teachers adapt math tasks for multilingual learners while preserving mathematical rigor.
 
@@ -28,6 +28,7 @@ The current prototype generates:
 - checks for understanding
 - downloadable Markdown output
 - interactive examples gallery with one-click loadable starting points
+- CCSS-aligned rubric generator with 1–4 levels, success criteria, teacher look-fors, and family-friendly explanation
 
 ## Portfolio framing
 
@@ -58,3 +59,7 @@ This project is intended to demonstrate:
 ## v0.4 Update
 
 The examples gallery cards now load example tasks into the generator and automatically create a scaffold.
+
+## v0.5 Update
+
+Added a second tool: a CCSS-Aligned Rubric Generator for drafting standards-based assessment language.
