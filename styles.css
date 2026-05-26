@@ -1,13 +1,13 @@
 :root {
-  --bg: #f6f2eb;
+  --bg: #f4f6fb;
   --card: #ffffff;
-  --text: #222222;
-  --muted: #5e5e5e;
-  --border: #ded6ca;
-  --accent: #2f5d50;
-  --accent-dark: #23473d;
-  --soft: #edf4f1;
-  --gold-soft: #f6ead2;
+  --text: #172033;
+  --muted: #596275;
+  --border: #d8deea;
+  --accent: #4f46e5;
+  --accent-dark: #312e81;
+  --soft: #eef2ff;
+  --gold-soft: #f0f7ff;
 }
 
 * {
@@ -19,6 +19,7 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   margin: 0;
   font-family: Atkinson Hyperlegible, Arial, Helvetica, sans-serif;
   background: var(--bg);
@@ -116,7 +117,7 @@ button.secondary {
 
 .secondary-link:hover,
 button.secondary:hover {
-  background: #dcebe5;
+  background: #e0e7ff;
 }
 
 button.small {
@@ -144,7 +145,7 @@ button.small {
 
 .hero-card dt {
   font-weight: 700;
-  color: #cbe2da;
+  color: #c7d2fe;
 }
 
 .hero-card dd {
@@ -400,10 +401,6 @@ footer {
   padding: 0;
 }
 
-body {
-  overflow-x: hidden;
-}
-
 .hidden {
   display: none;
 }
@@ -425,5 +422,92 @@ body {
 
 .rubric-table th {
   background: var(--soft);
+  color: var(--accent-dark);
+}
+
+.suite-overview {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 24px 32px;
+}
+
+.suite-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.suite-card {
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.suite-card:hover {
+  background: var(--soft);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.full-width-heading {
+  grid-column: 1 / -1;
+  margin-bottom: -4px;
+}
+
+#tool,
+#rubric-tool,
+#sample,
+#examples-gallery,
+#case-study {
+  scroll-margin-top: 24px;
+}
+
+.output-panel,
+.input-panel {
+  min-width: 0;
+}
+
+.output {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .suite-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width-heading {
+    margin-bottom: 0;
+  }
+
+  .rubric-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+.site-header {
+  background:
+    radial-gradient(circle at top right, rgba(79, 70, 229, 0.12), transparent 34%),
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.10), transparent 28%);
+}
+
+.card {
+  box-shadow: 0 14px 34px rgba(23, 32, 51, 0.08);
+}
+
+.hero-card {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+}
+
+.accent-card {
+  border-color: #bfdbfe;
+}
+
+.tag {
+  background: #eef2ff;
   color: var(--accent-dark);
 }
