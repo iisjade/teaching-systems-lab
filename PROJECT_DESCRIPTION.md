@@ -24,3 +24,13 @@ The examples gallery is now interactive. Each example card loads a task into the
 ## v0.5 Update
 
 Added a CCSS-Aligned Rubric Generator as a second tool in the suite. The rubric tool drafts a 1–4 standards-based rubric, student-facing success criteria, teacher look-fors, and a family-friendly explanation for selected middle school math standards.
+
+
+## v0.6 Update
+
+Added a tool-suite overview that frames the site as a two-tool workflow: first adapt the task for language access, then clarify assessment expectations through a standards-aligned rubric. Also improved navigation, section hierarchy, and responsive polish.
+
+
+## v0.7 Update
+
+Updated the color system from the original warm beige/green palette to a cleaner slate/indigo visual direction with soft blue-lavender surfaces, stronger contrast, and a more modern portfolio feel.
