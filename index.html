@@ -9,7 +9,8 @@
 <body>
   <header class="site-header">
     <nav class="top-nav" aria-label="Page navigation">
-      <a href="#tool">Tool</a>
+      <a href="#tool">Scaffold Tool</a>
+      <a href="#rubric-tool">Rubric Tool</a>
       <a href="#sample">Sample</a>
       <a href="#examples-gallery">Examples</a>
       <a href="#case-study">Case study</a>
@@ -18,9 +19,9 @@
     <div class="hero-grid">
       <div>
         <p class="eyebrow">Teaching Systems Lab</p>
-        <h1>Math Language Scaffold Generator</h1>
+        <h1>Teacher Tool Suite</h1>
         <p class="subtitle">
-          A classroom-centered web tool for adapting math tasks for multilingual learners while preserving the mathematical thinking students are expected to do.
+          A classroom-centered prototype suite for adapting math tasks, generating language supports, and drafting standards-aligned rubrics for multilingual classrooms.
         </p>
         <div class="hero-actions">
           <a class="button-link" href="#tool">Try the tool</a>
@@ -128,6 +129,103 @@
       </article>
     </section>
   </main>
+
+
+  <section id="rubric-tool" class="rubric-tool">
+    <div class="section-heading">
+      <p class="eyebrow">Tool 2</p>
+      <h2>CCSS-Aligned Rubric Generator</h2>
+      <p class="helper">
+        Draft a standards-based 1–4 rubric with student-facing success criteria, teacher look-fors, and family-friendly language.
+      </p>
+    </div>
+
+    <div class="layout rubric-layout">
+      <section class="card input-panel">
+        <h2>Create a rubric</h2>
+        <p class="helper">
+          Choose a standard and task type, then generate editable assessment language.
+        </p>
+
+        <form id="rubricForm">
+          <label>
+            Grade level
+            <select id="rubricGradeLevel">
+              <option>Grade 6</option>
+              <option selected>Grade 7</option>
+              <option>Grade 8</option>
+              <option>Algebra 1</option>
+            </select>
+          </label>
+
+          <label>
+            Standard
+            <select id="rubricStandard">
+              <option selected value="7.RP.A.3">7.RP.A.3: Use proportional relationships to solve multistep ratio and percent problems.</option>
+              <option value="7.RP.A.2">7.RP.A.2: Recognize and represent proportional relationships between quantities.</option>
+              <option value="7.G.B.4">7.G.B.4: Know and use formulas for area and circumference of a circle.</option>
+              <option value="8.F.B.4">8.F.B.4: Construct a function to model a linear relationship.</option>
+              <option value="custom">Custom standard</option>
+            </select>
+          </label>
+
+          <label id="customStandardLabel" class="hidden">
+            Custom standard text
+            <textarea id="customStandardText" rows="3" placeholder="Paste or type the standard here."></textarea>
+          </label>
+
+          <label>
+            Task type
+            <select id="rubricTaskType">
+              <option selected>Short constructed response</option>
+              <option>Performance task</option>
+              <option>Exit ticket</option>
+              <option>Quiz item</option>
+              <option>Project explanation</option>
+            </select>
+          </label>
+
+          <label>
+            Student product
+            <input id="rubricStudentProduct" type="text" value="Students solve a percent change problem and explain their reasoning using a representation." />
+          </label>
+
+          <label>
+            Emphasis
+            <select id="rubricEmphasis">
+              <option selected>Conceptual understanding and explanation</option>
+              <option>Accuracy and procedure</option>
+              <option>Multiple representations</option>
+              <option>Mathematical communication</option>
+            </select>
+          </label>
+
+          <div class="button-row">
+            <button type="submit">Generate rubric</button>
+            <button type="button" class="secondary" id="loadRubricExample">Load example</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card output-panel">
+        <div class="output-header">
+          <div>
+            <h2>Generated rubric</h2>
+            <p class="helper">Use as a draft for grading, feedback, family communication, or student-facing criteria.</p>
+          </div>
+          <div class="copy-actions">
+            <button type="button" class="secondary small" id="copyRubricOutput">Copy text</button>
+            <button type="button" class="secondary small" id="downloadRubricMarkdown">Download Markdown</button>
+          </div>
+        </div>
+
+        <article id="rubricOutput" class="output">
+          <p class="empty-state">Generate a rubric to see the output here.</p>
+        </article>
+      </section>
+    </div>
+  </section>
+
 
   <section id="sample" class="sample-section">
     <div class="section-heading">
@@ -240,14 +338,15 @@
           <li>Instructional design for real classroom constraints</li>
           <li>Teacher-facing product thinking</li>
           <li>Standards-aligned math language support</li>
-          <li>Editable output that can move into slides, worksheets, or lesson plans</li>
+          <li>Editable output that can move into slides, worksheets, rubrics, or lesson plans</li>
+          <li>A two-tool prototype suite with language scaffolding and standards-based assessment support</li>
         </ul>
       </div>
 
       <div class="card">
         <h3>Next iterations</h3>
         <ul>
-          <li>Add CCSS-aligned rubric output</li>
+          <li>Add more standards and task-type templates</li>
           <li>Add stronger topic-specific templates</li>
           <li>Add saved examples and classroom use cases</li>
           <li>Convert to React/Next.js and deploy on Vercel</li>
