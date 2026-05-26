@@ -388,3 +388,37 @@ footer {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
+
+.rubric-tool {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 0 32px;
+}
+
+.rubric-layout {
+  padding-top: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.rubric-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+.rubric-table th,
+.rubric-table td {
+  border: 1px solid var(--border);
+  padding: 12px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.rubric-table th {
+  background: var(--soft);
+  color: var(--accent-dark);
+}
