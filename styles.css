@@ -354,13 +354,9 @@ footer {
   font-weight: 700;
 }
 
-.tech-note a {
-  color: var(--accent-dark);
-  font-weight: 700;
-}
-
-.tech-note a:hover {
-  color: var(--accent);
+.tech-note {
+  font-size: 0.92rem;
+  color: var(--muted);
 }
 
 .example-loader {
@@ -514,4 +510,54 @@ footer {
 .tag {
   background: #eef2ff;
   color: var(--accent-dark);
+}
+
+.rubric-grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: white;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.rubric-grid th,
+.rubric-grid td {
+  border: 1px solid var(--text);
+  padding: 10px 12px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.rubric-grid th {
+  font-weight: 700;
+  background: #f8fafc;
+}
+
+.rubric-grid td:first-child {
+  width: 20%;
+  font-weight: 700;
+}
+
+.rubric-grid td:not(:first-child) {
+  width: 20%;
+}
+
+.rubric-grid em {
+  display: block;
+  margin-top: 10px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.rubric-grid p {
+  margin: 8px 0 0;
+}
+
+@media (max-width: 900px) {
+  .rubric-grid {
+    display: block;
+    overflow-x: auto;
+    white-space: normal;
+  }
 }
