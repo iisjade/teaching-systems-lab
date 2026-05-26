@@ -19,3 +19,8 @@ The site also includes an examples gallery with classroom-ready starting points 
 ## v0.4 Update
 
 The examples gallery is now interactive. Each example card loads a task into the generator and creates a scaffold automatically, making the prototype easier to demo and more clearly product-oriented.
+
+
+## v0.5 Update
+
+Added a CCSS-Aligned Rubric Generator as a second tool in the suite. The rubric tool drafts a 1–4 standards-based rubric, student-facing success criteria, teacher look-fors, and a family-friendly explanation for selected middle school math standards.
